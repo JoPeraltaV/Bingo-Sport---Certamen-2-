@@ -1,0 +1,2 @@
+<!-- Agregar justo después de la etiqueta <manifest>: -->
+<uses-permission android:name="android.permission.CAMERA" />
