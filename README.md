@@ -332,21 +332,23 @@ Cuando Firebase está habilitado, todos los cambios se sincronizan automáticame
 
 ---
 
-# Firebase
+# Supabase
 
-El proyecto está preparado para trabajar con:
+La aplicación utiliza **Supabase** como plataforma Backend as a Service (BaaS), permitiendo centralizar la autenticación de usuarios, el almacenamiento de la información y la sincronización de las partidas en tiempo real.
 
-- Firebase Authentication
-- Firebase Realtime Database
+El proyecto utiliza los siguientes servicios de Supabase:
 
-Firebase permite:
+- **Authentication:** gestión de usuarios e inicio de sesión.
+- **PostgreSQL Database:** almacenamiento de deportes, acciones, salas y datos de las partidas.
+- **Realtime:** sincronización en tiempo real entre los jugadores conectados a una misma sala.
 
-- registrar usuarios
-- iniciar sesión
-- sincronizar partidas
-- compartir puntajes en tiempo real
+Gracias a Supabase, la aplicación puede:
 
-Si Firebase no está configurado, la aplicación continúa funcionando en modo local.
+- Registrar e iniciar sesión de usuarios.
+- Almacenar información de los deportes y acciones.
+- Crear y administrar salas de juego.
+- Sincronizar el estado de las partidas en tiempo real.
+- Actualizar automáticamente el puntaje y el progreso de los jugadores.
 
 ---
 
