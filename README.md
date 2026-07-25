@@ -1,4 +1,4 @@
-# 🏆 Bingo Sport
+# Bingo Sport
 
 Bingo Sport es una aplicación desarrollada en Flutter que convierte un partido deportivo en un juego de bingo interactivo. Los jugadores pueden crear cartones personalizados utilizando acciones deportivas, marcar las jugadas a medida que ocurren durante un partido y competir por completar líneas o el cartón completo.
 
@@ -47,8 +47,9 @@ Preparado para Firebase Authentication y Firebase Realtime Database.
 
 - Flutter
 - Dart
-- Firebase Authentication
-- Firebase Realtime Database
+- Supabase Authentication
+- Supabase Database (PostgreSQL)
+- Supabase Realtime      
 - QR Flutter
 - Mobile Scanner
 - Git
@@ -85,10 +86,8 @@ Controlador (ChangeNotifier)
 Servicios
       │
       ▼
-Modelos
-      │
-      ▼
-Firebase / Memoria
+Supabase
+
 ```
 
 Cada parte cumple una función específica.
