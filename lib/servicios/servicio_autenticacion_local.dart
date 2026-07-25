@@ -1,3 +1,4 @@
+// Implementación local para pruebas (no usa red ni base de datos).
 import '../modelos/usuario.dart';
 import 'servicio_autenticacion.dart';
 
@@ -12,12 +13,10 @@ class ServicioAutenticacionLocal implements ServicioAutenticacion {
     required String correo,
     required String contrasena,
   }) async {
-    await Future<void>.delayed(const Duration(milliseconds: 650));
-    final nombreBase = correo.split('@').first.replaceAll('.', ' ').trim();
     _usuarioActual = Usuario(
-      id: correo.toLowerCase().hashCode.toString(),
-      nombre: nombreBase.isEmpty ? 'Jugador' : _capitalizar(nombreBase),
-      correo: correo.trim().toLowerCase(),
+      id: 'local-${correo.hashCode}',
+      nombre: correo.split('@').first,
+      correo: correo.trim(),
     );
     return _usuarioActual!;
   }
@@ -28,25 +27,14 @@ class ServicioAutenticacionLocal implements ServicioAutenticacion {
     required String correo,
     required String contrasena,
   }) async {
-    await Future<void>.delayed(const Duration(milliseconds: 650));
     _usuarioActual = Usuario(
-      id: correo.toLowerCase().hashCode.toString(),
+      id: 'local-${correo.hashCode}',
       nombre: nombre.trim(),
-      correo: correo.trim().toLowerCase(),
+      correo: correo.trim(),
     );
     return _usuarioActual!;
   }
 
   @override
-  Future<void> cerrarSesion() async {
-    _usuarioActual = null;
-  }
-
-  String _capitalizar(String texto) {
-    return texto
-        .split(RegExp(r'\s+'))
-        .where((parte) => parte.isNotEmpty)
-        .map((parte) => '${parte[0].toUpperCase()}${parte.substring(1)}')
-        .join(' ');
-  }
+  Future<void> cerrarSesion() async => _usuarioActual = null;
 }

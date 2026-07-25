@@ -249,8 +249,8 @@ class _PantallaCrearPartidaState extends State<PantallaCrearPartida> {
             title: const Text('Jugar con amigos online'),
             subtitle: Text(
               controlador.firebaseActiva
-                  ? 'La sala se compartirá mediante QR y Firebase.'
-                  : 'Modo local de demostración. Activa Firebase para usar varios dispositivos.',
+                  ? 'La sala se compartirá mediante QR y Supabase.'
+                  : 'Modo local de demostración.',
             ),
             secondary: const Icon(Icons.groups_rounded),
             contentPadding: const EdgeInsets.symmetric(horizontal: 8),

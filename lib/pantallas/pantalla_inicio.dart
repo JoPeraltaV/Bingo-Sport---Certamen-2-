@@ -264,8 +264,8 @@ class PantallaInicio extends StatelessWidget {
           const SizedBox(height: 18),
           Text(
             controlador.firebaseActiva
-                ? 'Las salas online se sincronizan con Firebase.'
-                : 'Las salas están en modo local. Activa Firebase para jugar entre dispositivos.',
+                ? 'Las salas online se sincronizan con Supabase.'
+                : 'Modo local. Activa el modo online para jugar entre dispositivos.',
             textAlign: TextAlign.center,
             style: Theme.of(context).textTheme.bodySmall?.copyWith(
                   color: colores.onSurfaceVariant,

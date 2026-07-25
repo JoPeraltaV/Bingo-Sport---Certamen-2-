@@ -1,49 +1,33 @@
-import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'estado/alcance_app.dart';
 import 'estado/controlador_app.dart';
 import 'pantallas/pantalla_inicio.dart';
 import 'pantallas/pantalla_login.dart';
 import 'servicios/repositorio_partidas.dart';
-import 'servicios/repositorio_partidas_firebase.dart';
-import 'servicios/repositorio_partidas_memoria.dart';
+import 'servicios/repositorio_partidas_supabase.dart';
 import 'servicios/servicio_autenticacion.dart';
-import 'servicios/servicio_autenticacion_firebase.dart';
-import 'servicios/servicio_autenticacion_local.dart';
+import 'servicios/servicio_autenticacion_supabase.dart';
 import 'tema/tema_app.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  const solicitarFirebase = bool.fromEnvironment(
-    'USAR_FIREBASE',
-    defaultValue: false,
+  await Supabase.initialize(
+    url: 'https://jyaajaycffysghpqcxir.supabase.co',
+    publishableKey: 'sb_publishable_8nnY6KjnAUHoSDRFlQD8ow_xD-cemEF',
   );
-  var firebaseActiva = false;
-  if (solicitarFirebase) {
-    try {
-      await Firebase.initializeApp();
-      firebaseActiva = true;
-    } catch (error) {
-      debugPrint('Firebase no pudo inicializarse; se usará el modo local: $error');
-    }
-  }
 
-  final ServicioAutenticacion autenticacion = firebaseActiva
-      ? ServicioAutenticacionFirebase()
-      : ServicioAutenticacionLocal();
-  final RepositorioPartidas repositorio = firebaseActiva
-      ? RepositorioPartidasFirebase()
-      : RepositorioPartidasMemoria();
+  final ServicioAutenticacion autenticacion = ServicioAutenticacionSupabase();
+  final RepositorioPartidas repositorio = RepositorioPartidasSupabase();
 
   runApp(
     BingoSportApp(
       controlador: ControladorApp(
         autenticacion: autenticacion,
         repositorioPartidas: repositorio,
-        firebaseActiva: firebaseActiva,
+        firebaseActiva: true,
       ),
     ),
   );

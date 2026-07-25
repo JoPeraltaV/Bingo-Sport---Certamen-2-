@@ -185,7 +185,7 @@ class _PantallaLoginState extends State<PantallaLogin> {
                       ),
                       child: Text(
                         controlador.firebaseActiva
-                            ? 'Modo online: Firebase está conectado.'
+                            ? 'Modo online: Supabase está conectado.'
                             : 'Modo demostración: acepta cualquier correo válido y contraseña de 6 caracteres.',
                         textAlign: TextAlign.center,
                         style: Theme.of(context).textTheme.bodySmall,

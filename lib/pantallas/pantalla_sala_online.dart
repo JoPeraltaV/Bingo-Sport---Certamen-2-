@@ -127,7 +127,7 @@ class PantallaSalaOnline extends StatelessWidget {
                     ),
                     label: Text(
                       controlador.firebaseActiva
-                          ? 'Sincronización Firebase'
+                          ? 'Sincronización Supabase'
                           : 'Demostración en este dispositivo',
                     ),
                   ),
