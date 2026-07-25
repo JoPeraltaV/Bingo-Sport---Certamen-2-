@@ -71,7 +71,7 @@ class _PantallaCrearPartidaState extends State<PantallaCrearPartida> {
         ],
       ),
     );
-    texto.dispose();
+    WidgetsBinding.instance.addPostFrameCallback((_) => texto.dispose());
     if (resultado == null || resultado.trim().isEmpty || !mounted) return;
     final controlador = AlcanceApp.de(context, escuchar: false);
     controlador.agregarAccionAlDeporte(deporte, resultado);

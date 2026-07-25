@@ -60,6 +60,7 @@ class PantallaInicio extends StatelessWidget {
         );
       },
     );
+    WidgetsBinding.instance.addPostFrameCallback((_) => controladorTexto.dispose());
     if (resultado == true && context.mounted) {
       AlcanceApp.de(context, escuchar: false).agregarDeporte(
         nombre: controladorTexto.text,
@@ -94,7 +95,7 @@ class PantallaInicio extends StatelessWidget {
         ],
       ),
     );
-    texto.dispose();
+    WidgetsBinding.instance.addPostFrameCallback((_) => texto.dispose());
     if (codigo == null || !context.mounted) return;
     await _procesarIngreso(context, codigo);
   }
