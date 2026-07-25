@@ -40,14 +40,21 @@ class BingoSportApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AlcanceApp(
-      controlador: controlador,
-      child: MaterialApp(
-        title: 'Bingo Sport',
-        debugShowCheckedModeBanner: false,
-        theme: crearTemaBingoSport(),
-        home: const _EnrutadorSesion(),
-      ),
+    return ListenableBuilder(
+      listenable: controlador,
+      builder: (context, _) {
+        return AlcanceApp(
+          controlador: controlador,
+          child: MaterialApp(
+            title: 'Bingo Sport',
+            debugShowCheckedModeBanner: false,
+            theme: crearTemaBingoSport(),
+            darkTheme: crearTemaBingoSport(brightness: Brightness.dark),
+            themeMode: controlador.modoOscuro ? ThemeMode.dark : ThemeMode.light,
+            home: const _EnrutadorSesion(),
+          ),
+        );
+      },
     );
   }
 }

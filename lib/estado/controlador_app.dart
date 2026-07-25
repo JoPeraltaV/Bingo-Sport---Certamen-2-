@@ -32,6 +32,12 @@ class ControladorApp extends ChangeNotifier {
   final bool firebaseActiva;
   final List<Deporte> deportes;
 
+  bool modoOscuro = false;
+  void alternarModoOscuro() {
+    modoOscuro = !modoOscuro;
+    notifyListeners();
+  }
+
   Usuario? usuario;
   ConfiguracionPartida? configuracionActual;
   EstadoPartida? partidaActual;

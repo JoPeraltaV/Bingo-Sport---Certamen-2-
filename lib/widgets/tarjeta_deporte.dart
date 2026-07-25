@@ -29,7 +29,9 @@ class TarjetaDeporte extends StatelessWidget {
           duration: const Duration(milliseconds: 220),
           padding: const EdgeInsets.all(18),
           decoration: BoxDecoration(
-            color: seleccionado ? colores.primaryContainer : Colors.white,
+            color: seleccionado
+                ? colores.primaryContainer
+                : colores.surfaceContainerHigh,
             borderRadius: BorderRadius.circular(22),
             border: Border.all(
               color: seleccionado ? colores.primary : colores.outlineVariant,
@@ -50,7 +52,12 @@ class TarjetaDeporte extends StatelessWidget {
                 textAlign: TextAlign.center,
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
-                style: const TextStyle(fontWeight: FontWeight.w700),
+                style: TextStyle(
+                  fontWeight: FontWeight.w700,
+                  color: seleccionado
+                      ? colores.onPrimaryContainer
+                      : colores.onSurface,
+                ),
               ),
             ],
           ),

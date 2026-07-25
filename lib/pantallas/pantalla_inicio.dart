@@ -132,6 +132,23 @@ class PantallaInicio extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Bingo Sport'),
         actions: <Widget>[
+          AnimatedSwitcher(
+            duration: const Duration(milliseconds: 300),
+            transitionBuilder: (child, anim) => RotationTransition(
+              turns: Tween<double>(begin: 0.75, end: 1).animate(anim),
+              child: FadeTransition(opacity: anim, child: child),
+            ),
+            child: IconButton(
+              key: ValueKey<bool>(controlador.modoOscuro),
+              tooltip: controlador.modoOscuro ? 'Modo claro' : 'Modo oscuro',
+              onPressed: controlador.alternarModoOscuro,
+              icon: Icon(
+                controlador.modoOscuro
+                    ? Icons.light_mode_rounded
+                    : Icons.dark_mode_rounded,
+              ),
+            ),
+          ),
           IconButton(
             tooltip: 'Cerrar sesión',
             onPressed: controlador.cerrarSesion,

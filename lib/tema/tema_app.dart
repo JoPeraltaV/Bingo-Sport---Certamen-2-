@@ -1,18 +1,23 @@
 import 'package:flutter/material.dart';
 
-ThemeData crearTemaBingoSport() {
+const _semilla = Color(0xFF4C5FD7);
+
+ThemeData crearTemaBingoSport({Brightness brightness = Brightness.light}) {
+  final esDark = brightness == Brightness.dark;
+
   final esquema = ColorScheme.fromSeed(
-    seedColor: const Color(0xFF4C5FD7),
-    brightness: Brightness.light,
+    seedColor: _semilla,
+    brightness: brightness,
   );
 
   return ThemeData(
     useMaterial3: true,
     colorScheme: esquema,
-    scaffoldBackgroundColor: const Color(0xFFF7F8FC),
+    scaffoldBackgroundColor:
+        esDark ? const Color(0xFF0E0F1A) : const Color(0xFFF7F8FC),
     inputDecorationTheme: InputDecorationThemeData(
       filled: true,
-      fillColor: Colors.white,
+      fillColor: esDark ? const Color(0xFF1A1B2E) : Colors.white,
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(18),
         borderSide: BorderSide.none,
@@ -25,12 +30,14 @@ ThemeData crearTemaBingoSport() {
         borderRadius: BorderRadius.circular(18),
         borderSide: BorderSide(color: esquema.primary, width: 2),
       ),
-      contentPadding: const EdgeInsets.symmetric(horizontal: 18, vertical: 16),
+      contentPadding:
+          const EdgeInsets.symmetric(horizontal: 18, vertical: 16),
     ),
     cardTheme: CardThemeData(
       elevation: 0,
-      color: Colors.white,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+      color: esDark ? const Color(0xFF1A1B2E) : Colors.white,
+      shape:
+          RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
     ),
     appBarTheme: const AppBarTheme(
       centerTitle: false,
