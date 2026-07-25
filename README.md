@@ -1,107 +1,454 @@
-# Bingo Sport
+# 🏆 Bingo Sport
 
-MVP en Flutter para crear bingos deportivos locales u online. Incluye:
+Bingo Sport es una aplicación desarrollada en Flutter que convierte un partido deportivo en un juego de bingo interactivo. Los jugadores pueden crear cartones personalizados utilizando acciones deportivas, marcar las jugadas a medida que ocurren durante un partido y competir por completar líneas o el cartón completo.
 
-- Login y registro con validación mediante `Form` y `TextFormField`.
-- Estado global con `ChangeNotifier` + `InheritedNotifier`, sin dependencia extra.
-- Deportes predeterminados y deportes creados por el usuario.
-- Acciones predeterminadas y personalizadas.
-- Cartones 3×3, 4×4 y 5×5.
-- Un punto por cada línea horizontal, vertical o diagonal completada por primera vez.
+La aplicación fue desarrollada siguiendo una arquitectura organizada y reutilizable, separando la interfaz y los servicios para facilitar el mantenimiento y futuras mejoras.
+
+---
+
+# Objetivos del proyecto
+
+- Desarrollar una aplicación móvil utilizando Flutter.
+- Implementar autenticación de usuarios.
+- Utilizar manejo de estado.
+- Aplicar reutilización de componentes.
+- Incorporar animaciones.
+- Implementar un modo multijugador mediante Firebase y códigos QR.
+- Mantener una arquitectura limpia y organizada.
+
+---
+
+# Características principales
+
+- Inicio de sesión con validación.
+- Registro de usuarios.
+- Deportes predeterminados.
+- Creación de deportes personalizados.
+- Acciones predeterminadas.
+- Acciones creadas por el usuario.
+
+Cartones de:
+
+- 3x3
+- 4x4
+- 5x5
+
+- Sistema de puntuación por líneas.
 - Victoria al completar todo el cartón.
-- Animaciones de entrada, selección, celdas, carga y celebración.
-- Salas mediante código/QR.
-- Modo local listo para ejecutar y adaptador para Firebase Realtime Database.
-- Widgets, clases, archivos y métodos nombrados en español.
+- Animaciones de interfaz.
+- Creación de salas online.
+- Unión mediante código o código QR.
 
-## Estructura
+Preparado para Firebase Authentication y Firebase Realtime Database.
 
-```text
+---
+
+# Tecnologías utilizadas
+
+- Flutter
+- Dart
+- Firebase Authentication
+- Firebase Realtime Database
+- QR Flutter
+- Mobile Scanner
+- Git
+- GitHub
+
+---
+
+# Arquitectura del proyecto
+
+El proyecto está dividido en distintas capas para separar responsabilidades.
+
+```
 lib/
-├── datos/          Catálogo deportivo inicial
-├── estado/         Controlador global y alcance de estado
-├── modelos/        Entidades del dominio
-├── pantallas/      Login, inicio, configuración, sala, QR y juego
-├── servicios/      Autenticación y repositorios local/Firebase
-├── tema/           Tema visual
-├── utilidades/     Mapeo de iconos
-└── widgets/        Componentes reutilizables
+│
+├── modelos/
+├── pantallas/
+├── widgets/
+├── servicios/
+├── estado/
+├── datos/
+├── tema/
+└── main.dart
 ```
 
-## Requisitos
+La estructura general funciona de la siguiente manera:
 
-- Flutter 3.44 o superior.
-- Dart 3.8 o superior.
-- Android compileSdk 34 o superior para el escáner QR.
-
-## Preparar el proyecto
-
-Este paquete contiene todo el código de la aplicación. Como el entorno donde fue generado no tenía instalado el SDK de Flutter, ejecuta el script incluido para generar de forma segura los archivos nativos estándar y aplicar los permisos de cámara:
-
-### Windows PowerShell
-
-Desde la carpeta `bingo_sport`, ejecuta:
-
-```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File .\preparar_proyecto.ps1
+```
+Pantallas
+      │
+      ▼
+Controlador (ChangeNotifier)
+      │
+      ▼
+Servicios
+      │
+      ▼
+Modelos
+      │
+      ▼
+Firebase / Memoria
 ```
 
-No uses `chmod` en PowerShell: ese comando pertenece a sistemas Unix/Bash.
+Cada parte cumple una función específica.
 
-### macOS, Linux o Git Bash
+### Pantallas
+
+Contienen únicamente la interfaz gráfica que ve el usuario.
+
+Ejemplos:
+
+- Login
+- Inicio
+- Crear partida
+- Juego
+- Sala Online
+
+---
+
+### Modelos
+
+Representan la información de la aplicación.
+
+Por ejemplo:
+
+- Usuario
+- Deporte
+- Acción
+- Sala
+- Configuración de partida
+
+Los modelos solamente almacenan datos.
+
+---
+
+### Servicios
+
+Los servicios realizan operaciones específicas como:
+
+- iniciar sesión
+- registrarse
+- crear salas
+- conectarse a Firebase
+
+Gracias a esto la lógica queda separada de la interfaz.
+
+---
+
+### Estado
+
+El estado global de la aplicación se controla mediante **ChangeNotifier**.
+
+Cuando cambia algún dato importante, como el puntaje o el usuario, el controlador ejecuta:
+
+```dart
+notifyListeners();
+```
+
+Esto actualiza automáticamente todos los widgets que están utilizando esa información.
+
+---
+
+# Manejo del estado
+
+Se utilizó **ChangeNotifier** porque diferentes pantallas necesitan compartir la misma información.
+
+Por ejemplo:
+
+- usuario autenticado
+- deporte seleccionado
+- cartón actual
+- puntaje
+- sala online
+
+En lugar de enviar estos datos entre todas las pantallas, el controlador mantiene un único estado global.
+
+---
+
+# Widgets reutilizados
+
+Uno de los objetivos fue reutilizar componentes para evitar duplicar código.
+
+Los principales widgets reutilizables son:
+
+### BotonPrincipal
+
+Se utiliza para:
+
+- iniciar sesión
+- registrarse
+- crear partida
+- guardar cambios
+- crear deportes
+
+Modificar este widget cambia todos los botones de la aplicación.
+
+---
+
+### CampoTexto
+
+Se reutiliza para:
+
+- correo
+- contraseña
+- nombre del deporte
+- acciones personalizadas
+
+---
+
+### CeldaBingo
+
+Representa cada casilla del cartón.
+
+El mismo widget se utiliza para todas las posiciones del bingo.
+
+---
+
+### TarjetaDeporte
+
+Muestra la información de cada deporte disponible.
+
+---
+
+### SelectorTamano
+
+Permite elegir entre:
+
+- 3x3
+- 4x4
+- 5x5
+
+---
+
+# Funcionamiento de la aplicación
+
+## 1. Login
+
+El usuario inicia sesión utilizando correo y contraseña.
+
+Los datos son validados antes de ingresar.
+
+---
+
+## 2. Selección del deporte
+
+Puede escoger un deporte existente o crear uno nuevo.
+
+Cada deporte contiene su propio conjunto de acciones.
+
+---
+
+## 3. Configuración de la partida
+
+El usuario selecciona:
+
+- deporte
+- tamaño del cartón
+- acciones
+- modo local u online
+
+---
+
+## 4. Generación del cartón
+
+El sistema mezcla las acciones disponibles de forma aleatoria y genera el cartón.
+
+Según el tamaño elegido:
+
+3x3 → 9 casillas
+
+4x4 → 16 casillas
+
+5x5 → 25 casillas
+
+---
+
+## 5. Desarrollo del juego
+
+Durante el partido el usuario marca las acciones cuando ocurren.
+
+Cada vez que marca una casilla:
+
+- cambia su apariencia
+- reproduce una animación
+- verifica si existe una nueva línea completa
+
+---
+
+# Sistema de puntuación
+
+Se obtiene **1 punto** cada vez que se completa:
+
+- una fila
+- una columna
+- una diagonal
+
+Cada línea solamente puede entregar puntos una vez.
+
+Para evitar sumar varias veces la misma línea se utiliza un **Set**, donde se almacenan las líneas ya premiadas.
+
+Puntaje máximo:
+
+| Cartón | Líneas posibles |
+|---------|-----------------|
+| 3x3 | 8 |
+| 4x4 | 10 |
+| 5x5 | 12 |
+
+Cuando todas las casillas están marcadas el jugador gana la partida.
+
+---
+
+# Animaciones
+
+La aplicación utiliza animaciones para mejorar la experiencia del usuario.
+
+Entre ellas:
+
+- transición entre pantallas
+- selección de casillas
+- aparición de formularios
+- celebración al completar el cartón
+
+Estas animaciones fueron implementadas utilizando widgets animados propios de Flutter.
+
+---
+
+# Modo Online
+
+El modo online funciona mediante salas.
+
+El jugador que crea la sala obtiene:
+
+- código
+- código QR
+
+Los demás jugadores pueden ingresar:
+
+- escribiendo el código
+- escaneando el QR
+
+Cuando Firebase está habilitado, todos los cambios se sincronizan automáticamente.
+
+---
+
+# Firebase
+
+El proyecto está preparado para trabajar con:
+
+- Firebase Authentication
+- Firebase Realtime Database
+
+Firebase permite:
+
+- registrar usuarios
+- iniciar sesión
+- sincronizar partidas
+- compartir puntajes en tiempo real
+
+Si Firebase no está configurado, la aplicación continúa funcionando en modo local.
+
+---
+
+# Scripts incluidos
+
+## preparar_proyecto.ps1
+
+Script para Windows.
+
+Automatiza:
+
+- creación de plataformas Flutter
+- restauración del proyecto
+- permisos de cámara
+- flutter pub get
+
+---
+
+## preparar_proyecto.sh
+
+Versión equivalente para Linux y macOS.
+
+---
+
+# Instalación
+
+Clonar el repositorio
 
 ```bash
-chmod +x preparar_proyecto.sh
-./preparar_proyecto.sh
+git clone https://github.com/USUARIO/Bingo-Sport.git
 ```
 
-También puedes ejecutar `flutter create --platforms=android,web .` manualmente en Windows, pero debes conservar los archivos `lib/`, `test/`, `pubspec.yaml` y `analysis_options.yaml` incluidos.
+Entrar al proyecto
 
-### Permisos para QR
+```bash
+cd bingo_sport
+```
 
-Android: agrega el contenido de `configuracion_plataformas/android_manifest_snippet.xml` en `android/app/src/main/AndroidManifest.xml`.
+Instalar dependencias
 
-iOS: agrega el contenido de `configuracion_plataformas/ios_info_plist_snippet.xml` en `ios/Runner/Info.plist`.
+```bash
+flutter pub get
+```
 
-## Ejecutar en modo local
+Ejecutar
 
 ```bash
 flutter run
 ```
 
-El modo local acepta cualquier correo con formato válido y cualquier contraseña de al menos 6 caracteres. Las salas locales sirven para demostrar el flujo en una misma instancia de la app.
-
-## Activar Firebase para partidas reales entre dispositivos
-
-1. Crea un proyecto en Firebase.
-2. Activa **Authentication > Email/Password**.
-3. Activa **Realtime Database**.
-4. Configura Android/iOS con FlutterFire o agrega los archivos nativos de Firebase.
-5. Publica las reglas de `firebase/database.rules.json` y revísalas antes de producción.
-6. Ejecuta:
+Para utilizar Firebase
 
 ```bash
 flutter run --dart-define=USAR_FIREBASE=true
 ```
 
-La aplicación intenta inicializar Firebase. Si la configuración no está disponible, vuelve automáticamente al modo local.
+---
 
-Para web, genera `firebase_options.dart` con FlutterFire CLI y pasa `DefaultFirebaseOptions.currentPlatform` a `Firebase.initializeApp`.
+# Git y GitHub
 
-## Comandos de calidad
+Durante el desarrollo se utilizó Git para mantener un historial de cambios y GitHub para almacenar el proyecto de forma remota.
+
+Comandos utilizados:
 
 ```bash
-flutter analyze
-flutter test
+git add .
+git commit -m "Descripción del cambio"
+git push
 ```
 
-## Decisiones de negocio
+Cuando el repositorio remoto ya contenía archivos fue necesario sincronizar ambos historiales utilizando:
 
-- Una línea recibe puntaje una sola vez, aunque se desmarque y vuelva a marcar.
-- Un cartón de 3×3 puede obtener hasta 8 puntos: 3 filas, 3 columnas y 2 diagonales.
-- Los jugadores de una sala reciben cartones con las mismas acciones disponibles, pero mezcladas de forma independiente.
-- La sala muestra el marcador en tiempo real cuando Firebase está activo.
+```bash
+git pull origin main --allow-unrelated-histories
+```
 
-## Siguiente nivel de producción
+---
 
-Antes de publicar conviene agregar persistencia local de deportes personalizados, recuperación de contraseña, reglas Firebase más estrictas, eliminación de salas antiguas, pruebas de integración y notificaciones de reconexión.
+# Decisiones de diseño
+
+Durante el desarrollo se tomaron las siguientes decisiones:
+
+- separar la lógica de negocio de la interfaz
+- reutilizar widgets
+- utilizar modelos para representar la información
+- utilizar servicios independientes para autenticación y partidas
+- implementar manejo de estado mediante ChangeNotifier
+- preparar el proyecto para funcionar tanto localmente como con Firebase
+
+Estas decisiones permiten que el proyecto sea más fácil de mantener y ampliar.
+
+---
+
+# Posibles mejoras
+
+- perfil de usuario
+- historial de partidas
+- ranking global
+- más deportes
+- estadísticas
+- notificaciones
+- modo oscuro
+- almacenamiento local permanente
+
